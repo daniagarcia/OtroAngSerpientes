@@ -1,0 +1,16 @@
+<div class="container">
+    <h1>Serpientes y escaleras</h1>
+    
+    <div style="display: inline-block" class="tablero">
+        <section *ngFor="let renglon of celdas.reverse(); index as i;">
+            <div *ngFor="let c of renglon;" class="celda">
+                <div *ngIf="c.numero==jugador1.posicion" class="ficha1"></div>
+                <div *ngIf="c.numero==jugador2.posicion" class="ficha2"></div>
+            </div>
+        </section>
+    </div>
+    <div style="display: inline-block" id="side1">
+        <button (click)="clickrandom()" id="dice">{{dado}}</button>
+    </div>
+</div>
+<div hidden id="particles-js"></div>

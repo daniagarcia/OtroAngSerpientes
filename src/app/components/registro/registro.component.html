@@ -1,0 +1,20 @@
+<div class="container">
+  <div id="login-box">
+    <div class="logo">
+      <h1 class="logo-caption">
+        <span class="tweak">R</span>egistro</h1>
+    </div>
+    <!-- [(ngmodel)]="usu"-->
+    <div class="controls">
+      <form (submit) = "RegUsu($event)">
+        <input type="text" name="usu" id="usu" placeholder="Usuario" class="form-control" />
+        <input type="text" name="pws" id="psw" placeholder="Contraseña" class="form-control" />
+        <br>
+        <button type="button" class="btn btn-default btn-block btn-custom">Registrarse</button>
+      </form>
+      <br>
+      <button routerLink="" type="button" class="btn btn-default btn-block btn-custom">Login</button>
+    </div>
+  </div>
+</div>
+<div id="particles-js"></div>

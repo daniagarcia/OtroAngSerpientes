@@ -1,1 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
+/**@import '~bootstrap/dist/css/bootstrap.min.css';*/
+
+.asd
+{
+    background-color: black;
+}
+
+.celda{
+    height: 50px;
+    width: 50px;
+    display: inline-block;
+}
+
+.tablero{
+    background-position: center center;
+    background-size: cover;
+    line-height: 0;
+    width: 500px;
+    height: 500px;
+    background-image: url('assets/img/tablero.jpg');
+}
+
+.ficha1{
+    height: 50px;
+    width: 50px;    
+    background-image: url('assets/img/roja.png');
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    position: absolute;
+}
+
+.ficha2{
+    height: 50px;
+    width: 50px;    
+    background-image: url('assets/img/negro.png');
+    background-position: bottom center;
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    position: absolute;
+}

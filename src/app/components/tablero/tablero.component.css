@@ -1,0 +1,96 @@
+body{
+    background-color:#DEB887;
+  }
+  h1
+  {
+    text-align:center;
+    background-color:#808000;
+    padding:6px;
+    color:white;
+  }
+  
+  .main
+  {
+    height:525px;
+    width:525px;
+    background-image:url("src/assets/img/tablero.jpg");
+    background-size:525px 525px;
+    background-repeat:no-repeat;
+    float:left;
+    border:3px solid 	#A52A2A;
+  }
+  
+  .superimposed
+  {
+  
+    height:500px;
+    width:500px;
+    position:absolute;
+    top:90px;
+    left:20px;
+  }
+  
+  #side
+  {
+    height:500px;
+    width:200px;
+    margin-left:500px;
+  }
+  
+  .btn
+  {
+    height:40px;
+    width:100px;
+    margin-left:50px;
+    margin-top:20px;
+    border-radius:5px;
+  }
+  
+  .boardbox
+  {
+    height:50px;
+    width:50px;
+  }
+  .left
+  {
+    float:left;
+  }
+
+
+  .right
+  {
+    float:right;
+  }
+  .img
+  {
+    height:45px;
+    width:50px;
+    margin:2px 0px 3px 0px;
+  }
+  #dice
+  {
+    height:80px;
+    width:80px;
+    font-size:70px;
+    color:black;
+    margin:auto;
+    border:none;
+    background-color:white;
+  }
+  .contenedor-tabla{
+
+    display: table;
+    
+    }
+    
+    .contenedor-fila{
+    
+    display: table-row;
+    
+    }
+    
+    .contenedor-columna{
+    
+    display: table-cell;
+    
+    }
