@@ -7,12 +7,13 @@ import { LoginComponent } from './../components/login/login.component';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard {
   constructor(private auth:LoginComponent)
   {}
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    return this.auth.setBool();
-  }
 }
+//   canActivate(
+//     // next: ActivatedRouteSnapshot,
+//     // state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+//     // return this.auth.setBool();
+//   }
+// }

@@ -15,7 +15,7 @@ import { TableroComponent } from './components/tablero/tablero.component';
 
 import { ServicioService } from './Services/servicio.service';
 import { LoginAuthService } from './Services/login-auth.service';
-import { AuthService } from './Services/auth.service';
+// import { AuthService } from './Services/auth.service';
 
 import { AuthGuard } from './Guards/auth.guard';
 
@@ -25,8 +25,9 @@ const routes: Routes =
   { path: 'Registrarse', component: RegistroComponent },
   { path: 'inicio', component: InicioComponent},
   { path: 'tb', component: TableroComponent },
-  { path: '',component: LoginComponent, pathMatch: 'full' },
-  { path: '**',   redirectTo: '', pathMatch: 'full' }
+  {path:  'login',component:LoginComponent}
+  // { path: '',component: LoginComponent, pathMatch: 'full' },
+  // { path: '**',   redirectTo: '', pathMatch: 'full' }
  ];
 
 @NgModule({
@@ -45,7 +46,7 @@ const routes: Routes =
     HttpModule
     
   ],
-  providers: [ServicioService , LoginAuthService , AuthService , AuthGuard],
+  providers: [ServicioService , AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

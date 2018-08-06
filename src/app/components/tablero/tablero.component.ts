@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Celda } from '../../Clases/Celda'
 import { User } from '../../Clases/User';
-import { setInterval } from 'timers';
+// import { setInterval } from 'timers';
 
 @Component({
   selector: 'app-tablero',

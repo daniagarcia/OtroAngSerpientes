@@ -1,24 +1,24 @@
-<div class="container">
-	<div id="login-box">
-		<div class="logo">
-			<h1 class="logo-caption">
-				<span class="tweak">L</span>ogin</h1>
-		</div>
-		<!-- /.logo -->
-		<div class="controls">
-			<form (submit)="loginUser($event)">
-				<input type="text" name="usu" id="usu" placeholder="Usuario" class="form-control" />
-				<input type="text" name="psw" id="psw" placeholder="Cotraseña" class="form-control" />
-				<br>
-				<input type="submit" value="submit" class="btn btn-default btn-block btn-custom" placeholder="Login">
-			</form>
-			<br>
-			<button routerLink="Registrarse" type="button" class="btn btn-default btn-block btn-custom">Registrarse</button>
-		</div>
-		<!-- /.controls -->
-	</div>
-	<!-- /#login-box -->
-</div>
-<!-- /.container -->
-<div id="particles-js">
-</div>
+<h2 class="log">Login</h2>
+<br>
+<form (submit)="onSubmit($event)" class="log">
+    <div class="form-group ">
+        <label for="username">Usuario</label>
+        <input type="text" id="usu" name="usu" class="form-control"
+        />
+        <!-- <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Username is required</div>
+        </div> -->
+    </div>
+    <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="psw" name="psw"  class="form-control" 
+        />
+        <!-- <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+        </div> -->
+    </div>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">Login</button>
+        <a [routerLink]="['/Registrarse']" class="btn btn-link">Registrarse</a>
+    </div>
+</form>

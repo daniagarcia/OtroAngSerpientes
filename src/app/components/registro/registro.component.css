@@ -76,3 +76,8 @@ body, html {
   	top: 0px;
   	z-index:1;
 }
+.log{
+	width: 50%;
+	height: 50%;
+	margin: 0 auto;
+}

@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+/* @import url('https://fonts.googleapis.com/css?family=Nunito');
 @import url('https://fonts.googleapis.com/css?family=Poiret+One');
 
 body, html {
 	height: 100%;
-	background-repeat: no-repeat;    /*background-image: linear-gradient(rgb(12, 97, 33),rgb(104, 145, 162));*/
+	background-repeat: no-repeat;    /*background-image: linear-gradient(rgb(12, 97, 33),rgb(104, 145, 162));
 	background:black;
 	position: relative;
 }
@@ -75,4 +75,10 @@ body, html {
   	position: fixed;
   	top: 0px;
   	z-index:1;
+} */
+.log{
+	width: 50%;
+	height: 50%;
+	margin: 0 auto;
 }
+
