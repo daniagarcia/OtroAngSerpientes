@@ -1,7 +1,8 @@
-<div class="container">
-    <h1>Serpientes y escaleras</h1>
-    
+<div class="">
+    <h1>Serpientes y Escaleras</h1>
+    <h2>{{jugador1}}</h2>
     <div style="display: inline-block" class="tablero">
+    
         <section *ngFor="let renglon of celdas.reverse(); index as i;">
             <div *ngFor="let c of renglon;" class="celda">
                 <div *ngIf="c.numero==jugador1.posicion" class="ficha1"></div>
@@ -12,5 +13,12 @@
     <div style="display: inline-block" id="side1">
         <button (click)="clickrandom()" id="dice">{{dado}}</button>
     </div>
+    <table>
+        <tr>
+            <th>Ganadas</th>
+            <th>Perdidas</th>
+            <!-- <th>Country</th> -->
+        </tr>
+    </table>
 </div>
 <div hidden id="particles-js"></div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Celda } from '../../Clases/Celda'
 import { User } from '../../Clases/User';
 // import { setInterval } from 'timers';
+import Ws from '@adonisjs/websocket-client';
 
 @Component({
   selector: 'app-tablero',
@@ -9,6 +10,7 @@ import { User } from '../../Clases/User';
   styleUrls: ['./tablero.component.css']
 })
 export class TableroComponent implements OnInit {
+  ws = Ws('ws://localhost:3333');
 
   constructor() { }
 

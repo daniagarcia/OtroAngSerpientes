@@ -4,20 +4,21 @@ body{
   h1
   {
     text-align:center;
-    background-color:#808000;
+    background-color:#1bac3f;
     padding:6px;
     color:white;
   }
   
   .main
   {
-    height:525px;
-    width:525px;
+    /* height:525px;
+    width:525px; */
     background-image:url("src/assets/img/tablero.jpg");
     background-size:525px 525px;
     background-repeat:no-repeat;
     float:left;
     border:3px solid 	#A52A2A;
+   
   }
   
   .superimposed
@@ -94,3 +95,23 @@ body{
     display: table-cell;
     
     }
+
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 50%;
+      float: right;
+      top: 900px;
+     
+     
+  }
+  
+  td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+      background-color: #dddddd;
+  }
