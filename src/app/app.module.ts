@@ -18,6 +18,7 @@ import { LoginAuthService } from './Services/login-auth.service';
 // import { AuthService } from './Services/auth.service';
 
 import { AuthGuard } from './Guards/auth.guard';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
 
 
 const routes: Routes = 
@@ -25,7 +26,8 @@ const routes: Routes =
   { path: 'Registrarse', component: RegistroComponent },
   { path: 'inicio', component: InicioComponent},
   { path: 'tb', component: TableroComponent },
-  {path:  'login',component:LoginComponent}
+  { path: 'login',component:LoginComponent},
+  { path: 'usuarios', component:UsuariosComponent}
   // { path: '',component: LoginComponent, pathMatch: 'full' },
   // { path: '**',   redirectTo: '', pathMatch: 'full' }
  ];
@@ -37,7 +39,8 @@ const routes: Routes =
     NavbarComponent,
     InicioComponent,
     RegistroComponent,
-    TableroComponent
+    TableroComponent,
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,
