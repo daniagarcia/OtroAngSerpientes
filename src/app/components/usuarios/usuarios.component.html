@@ -4,12 +4,14 @@
   <tr>
     <th>Usuarios</th>
   </tr>
-  <tr>
-    <td>sdssads</td>
+  <tr *ngFor='let usuarios of listUsuarios'>
+    <td>{{usuarios.nombre}}  <button (click)="inciarPartida(usuario)" class="btn btn-primary">Jugar</button> </td>
     <!-- <td>sdssads</td> -->
-    <button>jugar</button>
+   
   </tr>
+ 
   
 </table>
+
 
 </div>
