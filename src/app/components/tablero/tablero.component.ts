@@ -11,6 +11,11 @@ import Ws from '@adonisjs/websocket-client';
 })
 export class TableroComponent implements OnInit {
   ws = Ws('ws://localhost:3333');
+  usuario:any = {
+    id :"",
+    nombre:""
+  }
+  listUsuarios: Array<any>=[]
 
   constructor() { }
 
@@ -104,6 +109,11 @@ export class TableroComponent implements OnInit {
         }
       }, this.animDuration);
     }
+  }
+  ObtenerUser(){
+    this.usuario.id= localStorage.getItem('id_user');
+    this.usuario.nombre= localStorage.getItem('usuario');
+
   }
  
 }

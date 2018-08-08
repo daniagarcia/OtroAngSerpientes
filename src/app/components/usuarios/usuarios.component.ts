@@ -1,5 +1,7 @@
   import { Component, OnInit } from '@angular/core';
   import Ws from '@adonisjs/websocket-client';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
   @Component({
     selector: 'app-usuarios',
     templateUrl: './usuarios.component.html',
@@ -15,7 +17,8 @@
       id :"",
       nombre:""
     }
-    constructor() { } 
+    constructor(private  route: ActivatedRoute,
+      private router: Router,private http:HttpClient) { } 
 
     ngOnInit() {
     this.ObtenerUser();
@@ -52,7 +55,17 @@
         console.log('error al suscribir canal')
       })
 
-      canal.on("partida",usuario =>{
+      canal.on("partida",data =>{
+        if(data.tipoSolicitud == "Peticion"){
+          if(data.jugador2.id == this.usuario.id){
+            this.ws.getSubscription('juego').emit('partida',{tipoSolicitud:"Aceptada",jugador1:data.jugador1,jugador2:this.usuario})
+            this.router.navigate(['tb'])
+          }else if(data.tipoSolicitud == "Aceptada"){
+            if(data.jugador1.id== this.usuario.id){
+              this.router.navigate(['tb'])
+            }
+          }
+        }
         
       })
 
@@ -68,8 +81,8 @@
 
     }
 
-    inciarPartida(usuario:any){
-      this.ws.getSubscription('juego').emit('partida',usuario) 
-
+    inciarPartida(usuarioretado:any){
+      this.ws.getSubscription('juego').emit('partida',{tipoSolicitud:"Peticion", jugador1:this.usuario,jugador2:usuarioretado}) 
+      this.router.navigate(['tb']);
     }
   }
