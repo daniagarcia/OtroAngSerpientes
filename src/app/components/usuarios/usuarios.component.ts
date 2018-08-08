@@ -1,7 +1,8 @@
   import { Component, OnInit } from '@angular/core';
   import Ws from '@adonisjs/websocket-client';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+  import { ActivatedRoute, Router } from '@angular/router';
+  import { HttpClient } from '@angular/common/http';
+
   @Component({
     selector: 'app-usuarios',
     templateUrl: './usuarios.component.html',
@@ -13,10 +14,12 @@ import { HttpClient } from '@angular/common/http';
     nombreusuario:string;
     mensajes:Array<string>=[];
     listUsuarios: Array<any>=[]
+    celdas:Array<any>=[]
     usuario:any = {
       id :"",
       nombre:""
     }
+
     constructor(private  route: ActivatedRoute,
       private router: Router,private http:HttpClient) { } 
 
@@ -59,20 +62,17 @@ import { HttpClient } from '@angular/common/http';
         if(data.tipoSolicitud == "Peticion"){
           if(data.jugador2.id == this.usuario.id){
             this.ws.getSubscription('juego').emit('partida',{tipoSolicitud:"Aceptada",jugador1:data.jugador1,jugador2:this.usuario})
-            this.router.navigate(['tb'])
+            this.ws.close()
+            this.router.navigate(['/tb',data.jugador1.id+'_'+data.jugador2.id]);
           }else if(data.tipoSolicitud == "Aceptada"){
             if(data.jugador1.id== this.usuario.id){
-              this.router.navigate(['tb'])
+              this.ws.close();
+              this.router.navigate(['/tb',data.jugador1.id+'_'+data.jugador2.id])
             }
           }
         }
         
-      })
-
-        // canal.on('close', () => {
-        //   // isConnected = false
-        //   console.log('cerrado')
-        // })
+      })     
     }
 
     ObtenerUser(){
@@ -83,6 +83,7 @@ import { HttpClient } from '@angular/common/http';
 
     inciarPartida(usuarioretado:any){
       this.ws.getSubscription('juego').emit('partida',{tipoSolicitud:"Peticion", jugador1:this.usuario,jugador2:usuarioretado}) 
-      this.router.navigate(['tb']);
+      this.router.navigate(['/tb/:id'])
     }
+
   }

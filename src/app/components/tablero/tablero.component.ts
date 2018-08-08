@@ -3,7 +3,9 @@ import { Celda } from '../../Clases/Celda'
 import { User } from '../../Clases/User';
 // import { setInterval } from 'timers';
 import Ws from '@adonisjs/websocket-client';
+import { ActivatedRoute, Router } from '@angular/router';
 
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-tablero',
   templateUrl: './tablero.component.html',
@@ -16,8 +18,15 @@ export class TableroComponent implements OnInit {
     nombre:""
   }
   listUsuarios: Array<any>=[]
+  partida : any = {
+    turno:"",
+    retador:"",
+    tirar:false
 
-  constructor() { }
+  }
+
+  constructor(private  route: ActivatedRoute,
+    private router: Router,private http:HttpClient) { }
 
   celdas: Celda[][] = [];
   contador: number = 0;
@@ -44,8 +53,12 @@ export class TableroComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ObtenerUser()
+    this.obtenerValoresPartida()
+    this.iniciarConexion()
     this.jugador1 = new User();
     this.jugador2 = new User();
+    
  
     for (let i = 0; i < 10; i++) {
       if (!this.celdas[i]) {
@@ -114,6 +127,63 @@ export class TableroComponent implements OnInit {
     this.usuario.id= localStorage.getItem('id_user');
     this.usuario.nombre= localStorage.getItem('usuario');
 
+  }
+
+  iniciarConexion(){
+    this.ws = new Ws('ws:/localhost:3333').connect();
+    this.ws.on('open',data => {
+      console.log('se conecto!c:');
+      this.subscribirCanal();
+        this.ws.getSubscription('juego').emit('message',this.usuario)
+    })
+    this.ws.on('error',data => {
+      console.log('Error de conexión :c')
+    })
+    
+  }
+//data es el objeto con la info del usuario
+  subscribirCanal(){
+    let canal  = this.ws.subscribe('juego')
+    console.log('SUBSCRITO AL CANAL JUEGO ')
+    canal.on('message',data => {
+      console.log(data)
+      if(!this.listUsuarios.some(e => e.nombre === data.nombre)){
+        this.listUsuarios.push(data)
+        this.ws.getSubscription('juego').emit('message',this.usuario)
+      }
+      
+    });
+    canal.on('error',data => {
+      console.log('error al suscribir canal')
+    })
+
+    canal.on("partida",data =>{
+      if(data.tipoSolicitud == "Peticion"){
+        if(data.jugador2.id == this.usuario.id){
+          this.ws.getSubscription('juego').emit('partida',{tipoSolicitud:"Aceptada",jugador1:data.jugador1,jugador2:this.usuario})
+          this.ws.close()
+          localStorage.setItem('retador',data.jugador1.nombre)
+          localStorage.setItem('turno',"2")
+          this.router.navigate(['/tb',data.jugador1.id+'_'+data.jugador2.id]);
+        }else if(data.tipoSolicitud == "Aceptada"){
+          if(data.jugador1.id== this.usuario.id){
+            this.ws.close();
+            localStorage.setItem('retador',data.jugador2.nombre)
+            localStorage.setItem('turno',"1")
+            this.router.navigate(['/tb',data.jugador1.id+'_'+data.jugador2.id])
+          }
+        }
+      }
+      
+    })     
+  }
+
+  obtenerValoresPartida(){
+    this.partida.turno = localStorage.getItem('turno')    
+    this.partida.retador = localStorage.getItem('retador')
+    if(this.partida.turno == 1){
+      this.partida.tirar= true 
+    }
   }
  
 }
