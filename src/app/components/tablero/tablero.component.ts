@@ -21,7 +21,10 @@ export class TableroComponent implements OnInit {
   partida : any = {
     turno:"",
     retador:"",
-    tirar:false
+    tirar:false,
+    ficha1:"",
+    ficha2:"",
+    parida:"pendiente"
 
   }
 
@@ -42,7 +45,7 @@ export class TableroComponent implements OnInit {
     36:55,
     63:95,
     68:98,
-    //Serpientes.
+    //Serpientes
     99:69,
     91:61,
     87:57,
@@ -53,11 +56,12 @@ export class TableroComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.jugador1 = new User();
+    this.jugador2 = new User();
     this.ObtenerUser()
     this.obtenerValoresPartida()
     this.iniciarConexion()
-    this.jugador1 = new User();
-    this.jugador2 = new User();
+ 
     
  
     for (let i = 0; i < 10; i++) {
@@ -94,8 +98,10 @@ export class TableroComponent implements OnInit {
 
   dado: number = 1
   clickrandom() {
+    if(this.partida.partida == "empezar" && this.partida.tirar == true){
     this.dado = Math.ceil(Math.random() * 6);
     this.moverJugador()
+    }
   }
   
   moverJugador(){
@@ -145,17 +151,27 @@ export class TableroComponent implements OnInit {
   subscribirCanal(){
     let canal  = this.ws.subscribe('juego')
     console.log('SUBSCRITO AL CANAL JUEGO ')
-    canal.on('message',data => {
-      console.log(data)
-      if(!this.listUsuarios.some(e => e.nombre === data.nombre)){
-        this.listUsuarios.push(data)
-        this.ws.getSubscription('juego').emit('message',this.usuario)
-      }
-      
-    });
     canal.on('error',data => {
       console.log('error al suscribir canal')
     })
+    canal.on('partida',data => {
+      console.log(data)
+      if(data.retador == this.usuario.nombre){
+        if(data.partida == "pendiente"){
+          this.partida = "empezar"
+          this.ws.getSubscription('juego').emit('partida',this.partida
+        
+        
+        )
+        }
+      }
+      // if(!this.listUsuarios.some(e => e.nombre === data.nombre)){
+      //   this.listUsuarios.push(data)
+      //   this.ws.getSubscription('juego').emit('message',this.usuario)
+      // }
+      
+    });
+   
 
     canal.on("partida",data =>{
       if(data.tipoSolicitud == "Peticion"){
@@ -184,6 +200,8 @@ export class TableroComponent implements OnInit {
     if(this.partida.turno == 1){
       this.partida.tirar= true 
     }
+    this.partida.ficha1= this.jugador1
+    this.partida.ficha2= this.jugador2
   }
  
 }
