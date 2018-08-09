@@ -1,13 +1,12 @@
 <div>
-    <h1>Serpientes y Escaleras</h1>
+    <!-- <h1>Serpientes y Escaleras</h1> -->
 <table>
   <tr>
     <th>Usuarios</th>
   </tr>
-  <tr *ngFor='let usuarios of listUsuarios'>
-    <td>{{usuarios.nombre}}  <button (click)="inciarPartida(usuario)" class="btn btn-info btn-lg">Jugar</button> </td>
-    <!-- <td>sdssads</td> -->
-   
+  <tr *ngFor='let usuario of listUsuarios'>
+    <td>{{usuario.nombre}}  <button (click)="inciarPartida(usuario)" class="btn btn-info btn-lg">Jugar</button> </td>
+
   </tr>
  
   

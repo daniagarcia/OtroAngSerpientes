@@ -26,6 +26,7 @@
     ngOnInit() {
     this.ObtenerUser();
     this.iniciarConexion();
+    // this.subscribirCanal()
 
     }
 
@@ -51,26 +52,29 @@
         if(!this.listUsuarios.some(e => e.nombre === data.nombre)){
           this.listUsuarios.push(data)
           this.ws.getSubscription('juego').emit('message',this.usuario)
-        }
-        
+        }  
       });
       canal.on('error',data => {
         console.log('error al suscribir canal')
       })
-
       canal.on("partida",data =>{
         if(data.tipoSolicitud == "Peticion"){
           if(data.jugador2.id == this.usuario.id){
+            localStorage.setItem("turno","2");
+            localStorage.setItem("retador",data.jugador1.nombre)
             this.ws.getSubscription('juego').emit('partida',{tipoSolicitud:"Aceptada",jugador1:data.jugador1,jugador2:this.usuario})
             this.ws.close()
-            this.router.navigate(['/tb',data.jugador1.id+'_'+data.jugador2.id]);
+            this.router.navigate(['/tb/:id']);
+           }
           }else if(data.tipoSolicitud == "Aceptada"){
             if(data.jugador1.id== this.usuario.id){
+              localStorage.setItem("turno","1");
+              localStorage.setItem("retador",data.jugador2.nombre)
               this.ws.close();
-              this.router.navigate(['/tb',data.jugador1.id+'_'+data.jugador2.id])
+              this.router.navigate(['/tb/:id'])
             }
           }
-        }
+        
         
       })     
     }
@@ -83,7 +87,7 @@
 
     inciarPartida(usuarioretado:any){
       this.ws.getSubscription('juego').emit('partida',{tipoSolicitud:"Peticion", jugador1:this.usuario,jugador2:usuarioretado}) 
-      this.router.navigate(['/tb/:id'])
+      // this.router.navigate(['/tb/:id'])
     }
 
   }

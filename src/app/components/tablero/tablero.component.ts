@@ -23,7 +23,7 @@ export class TableroComponent implements OnInit {
     tirar:false,
     ficha1:"",
     ficha2:"",
-    parida:"pendiente"
+    partida:"pendiente"
 
   }
 
@@ -60,6 +60,7 @@ export class TableroComponent implements OnInit {
     this.ObtenerUser()
     this.obtenerValoresPartida()
     this.iniciarConexion()
+    // this.clickrandom()
     
     
  
@@ -158,7 +159,7 @@ export class TableroComponent implements OnInit {
       console.log(data)
       if(data.retador == this.usuario.nombre){
         if(data.partida == "pendiente"){
-          this.partida = "empezar"
+          this.partida.partida = "empezar"
           this.ws.getSubscription('juego').emit('partida',this.partida)
         }
       }
@@ -170,25 +171,25 @@ export class TableroComponent implements OnInit {
     });
    
 
-    canal.on("partida",data =>{
-      if(data.tipoSolicitud == "Peticion"){
-        if(data.jugador2.id == this.usuario.id){
-          this.ws.getSubscription('juego').emit('partida',{tipoSolicitud:"Aceptada",jugador1:data.jugador1,jugador2:this.usuario})
-          this.ws.close()
-          localStorage.setItem('retador',data.jugador1.nombre)
-          localStorage.setItem('turno',"2")
-          this.router.navigate(['/tb',data.jugador1.id+'_'+data.jugador2.id]);
-        }else if(data.tipoSolicitud == "Aceptada"){
-          if(data.jugador1.id== this.usuario.id){
-            this.ws.close();
-            localStorage.setItem('retador',data.jugador2.nombre)
-            localStorage.setItem('turno',"1")
-            this.router.navigate(['/tb',data.jugador1.id+'_'+data.jugador2.id])
-          }
-        }
-      }
+    // canal.on("partida",data =>{
+    //   if(data.tipoSolicitud == "Peticion"){
+    //     if(data.jugador2.id == this.usuario.id){
+    //       this.ws.getSubscription('juego').emit('partida',{tipoSolicitud:"Aceptada",jugador1:data.jugador1,jugador2:this.usuario})
+    //       this.ws.close()
+    //       localStorage.setItem('retador',data.jugador1.nombre)
+    //       localStorage.setItem('turno',"2")
+    //       this.router.navigate(['/tb',data.jugador1.id+'_'+data.jugador2.id]);
+        // }else if(data.tipoSolicitud == "Aceptada"){
+        //   if(data.jugador1.id== this.usuario.id){
+        //     this.ws.close();
+        //     localStorage.setItem('retador',data.jugador2.nombre)
+        //     localStorage.setItem('turno',"1")
+        //     this.router.navigate(['/tb',data.jugador1.id+'_'+data.jugador2.id])
+        //   }
+      //   }
+      // }
       
-    })     
+    // })     
   }
 
   obtenerValoresPartida(){
