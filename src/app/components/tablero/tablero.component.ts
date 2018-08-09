@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Celda } from '../../Clases/Celda'
 import { User } from '../../Clases/User';
-// import { setInterval } from 'timers';
 import Ws from '@adonisjs/websocket-client';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -61,7 +60,7 @@ export class TableroComponent implements OnInit {
     this.ObtenerUser()
     this.obtenerValoresPartida()
     this.iniciarConexion()
- 
+    
     
  
     for (let i = 0; i < 10; i++) {
@@ -84,7 +83,6 @@ export class TableroComponent implements OnInit {
     console.log(this.celdas)
   }
 
- // public number: number = 1;
   public a
   public n: number = 1
   public m: number = 0;
@@ -140,7 +138,7 @@ export class TableroComponent implements OnInit {
     this.ws.on('open',data => {
       console.log('se conecto!c:');
       this.subscribirCanal();
-        this.ws.getSubscription('juego').emit('message',this.usuario)
+        this.ws.getSubscription('juego').emit('partida',this.partida)
     })
     this.ws.on('error',data => {
       console.log('Error de conexión :c')
@@ -151,18 +149,17 @@ export class TableroComponent implements OnInit {
   subscribirCanal(){
     let canal  = this.ws.subscribe('juego')
     console.log('SUBSCRITO AL CANAL JUEGO ')
+
     canal.on('error',data => {
       console.log('error al suscribir canal')
     })
+
     canal.on('partida',data => {
       console.log(data)
       if(data.retador == this.usuario.nombre){
         if(data.partida == "pendiente"){
           this.partida = "empezar"
-          this.ws.getSubscription('juego').emit('partida',this.partida
-        
-        
-        )
+          this.ws.getSubscription('juego').emit('partida',this.partida)
         }
       }
       // if(!this.listUsuarios.some(e => e.nombre === data.nombre)){
