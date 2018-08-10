@@ -7,8 +7,8 @@
     
         <section *ngFor="let renglon of celdas.reverse(); index as i;">
             <div *ngFor="let c of renglon;" class="celda">
-                <div *ngIf="c.numero==jugador1.posicion" class="ficha1"></div>
-                <div *ngIf="c.numero==jugador2.posicion" class="ficha2"></div>
+                <div *ngIf="c.numero== this.partida.ficha1.posicion" class="ficha1"></div>
+                <div *ngIf="c.numero== this.partida.ficha2.posicion" class="ficha2"></div>
             </div>
         </section>
     </div>
