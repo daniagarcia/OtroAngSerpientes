@@ -23,7 +23,8 @@ export class TableroComponent implements OnInit {
     tirar:false,
     ficha1:"",
     ficha2:"",
-    partida:"pendiente"
+    partida:"pendiente",
+    dado:0
 
   }
 
@@ -60,28 +61,28 @@ export class TableroComponent implements OnInit {
     this.ObtenerUser()
     this.obtenerValoresPartida()
     this.iniciarConexion()
-    // this.clickrandom()
+    this.cargarArreglo()
     
     
  
-    for (let i = 0; i < 10; i++) {
-      if (!this.celdas[i]) {
-        this.celdas[i] = [];
-      }
+    // for (let i = 0; i < 10; i++) {
+    //   if (!this.celdas[i]) {
+    //     this.celdas[i] = [];
+    //   }
 
-      for (let y = 0; y < 10; y++) {
-        this.contador++;
-        var celda = new Celda()
-        if (this.contador == 1) {
-          this.jugador1.posicion=this.contador;
-          this.jugador2.posicion= this.contador;
-        }
-        celda.numero = this.contador;
+    //   for (let y = 0; y < 10; y++) {
+    //     this.contador++;
+    //     var celda = new Celda()
+    //     if (this.contador == 1) {
+    //       this.jugador1.posicion=this.contador;
+    //       this.jugador2.posicion= this.contador;
+    //     }
+    //     celda.numero = this.contador;
 
-        this.celdas[i].push(celda);
-      }
-    }
-    console.log(this.celdas)
+    //     this.celdas[i].push(celda);
+    //   }
+    // }
+    // console.log(this.celdas)
   }
 
   public a
@@ -97,33 +98,44 @@ export class TableroComponent implements OnInit {
 
   dado: number = 1
   clickrandom() {
-    if(this.partida.partida == "empezar" && this.partida.tirar == true){
+    if((this.partida.partida == "empezar" || this.partida.partida == "comenzar") && this.partida.tirar == true){
     this.dado = Math.ceil(Math.random() * 6);
-    this.moverJugador()
+    this.partida.dado= this.dado
+    this.partida.tirar = false
+    this.partida.partida = "comenzar"
+    if(this.partida.turno == "1"){
+      this.moverJugador(this.partida.ficha1)
+    }else{
+      this.moverJugador(this.partida.ficha2)
+    }
+    console.log(this.partida)
+    this.ws.getSubscription('juego').emit('partida',this.partida)
+
+ 
     }
   }
   
-  moverJugador(){
+  moverJugador(jugador: User){
     this.animador = 0
-    this.moverAnimado()
+    this.moverAnimado(jugador)
   }
 
   animador: number = 0;
   animDuration: number = 100
-  moverAnimado(){
-    this.jugador1.posicion++
+  moverAnimado(jugador: User){
+   jugador.posicion++
 
     this.animador++
 
     if(this.animador < this.dado){
       setTimeout(() => {
-        this.moverAnimado()
+        this.moverAnimado(jugador)
       }, this.animDuration);
     }
     else{
       setTimeout(() => {
-        if(this.relaciones.hasOwnProperty(this.jugador1.posicion)){
-          this.jugador1.posicion = this.relaciones[this.jugador1.posicion]
+        if(this.relaciones.hasOwnProperty(jugador.posicion)){
+          jugador.posicion = this.relaciones[jugador.posicion]
         }
       }, this.animDuration);
     }
@@ -162,34 +174,25 @@ export class TableroComponent implements OnInit {
           this.partida.partida = "empezar"
           this.ws.getSubscription('juego').emit('partida',this.partida)
         }
+      }else if(data.partida == "comenzar"){
+        console.log(data)
+        if(data.turno == "1"){
+          this.dado = data.dado
+          this.partida.dado = data.dado
+          this.partida.ficha1 = data.ficha1
+          this.partida.tirar = true
+          this.moverJugador(this.partida.ficha1) 
+        }else{
+          this.dado = data.dado
+          this.partida.dado = data.dado
+          this.partida.ficha2 = data.ficha2
+          this.partida.tirar = true
+          this.moverJugador(this.partida.ficha2)
+        }
       }
-      // if(!this.listUsuarios.some(e => e.nombre === data.nombre)){
-      //   this.listUsuarios.push(data)
-      //   this.ws.getSubscription('juego').emit('message',this.usuario)
-      // }
       
     });
-   
-
-    // canal.on("partida",data =>{
-    //   if(data.tipoSolicitud == "Peticion"){
-    //     if(data.jugador2.id == this.usuario.id){
-    //       this.ws.getSubscription('juego').emit('partida',{tipoSolicitud:"Aceptada",jugador1:data.jugador1,jugador2:this.usuario})
-    //       this.ws.close()
-    //       localStorage.setItem('retador',data.jugador1.nombre)
-    //       localStorage.setItem('turno',"2")
-    //       this.router.navigate(['/tb',data.jugador1.id+'_'+data.jugador2.id]);
-        // }else if(data.tipoSolicitud == "Aceptada"){
-        //   if(data.jugador1.id== this.usuario.id){
-        //     this.ws.close();
-        //     localStorage.setItem('retador',data.jugador2.nombre)
-        //     localStorage.setItem('turno',"1")
-        //     this.router.navigate(['/tb',data.jugador1.id+'_'+data.jugador2.id])
-        //   }
-      //   }
-      // }
-      
-    // })     
+    
   }
 
   obtenerValoresPartida(){
@@ -200,6 +203,23 @@ export class TableroComponent implements OnInit {
     }
     this.partida.ficha1= this.jugador1
     this.partida.ficha2= this.jugador2
+  }
+
+  cargarArreglo(){
+    let contador:number = 0;
+    for (let i = 0; i < 10; i++) {
+      this.celdas[i] = [];
+      for (let y = 0; y < 10; y++) {
+        contador++;
+        var celda = new Celda()
+        if (contador == 1) {
+          this.partida.ficha1.posicion = contador;
+          this.partida.ficha2.posicion = contador;
+        }
+        celda.numero = contador;
+        this.celdas[i].push(celda);
+      }
+    }
   }
  
 }
