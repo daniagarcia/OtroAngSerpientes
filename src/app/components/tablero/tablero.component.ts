@@ -182,13 +182,13 @@ export class TableroComponent implements OnInit {
           if(data.turno == "1"){
             this.dado = data.dado
             this.partida.dado = data.dado
-            this.partida.ficha1 = data.ficha1
+            // this.partida.ficha1 = data.ficha1
             this.partida.tirar = true
             this.moverJugador(this.partida.ficha1) 
           }else{
             this.dado = data.dado
             this.partida.dado = data.dado
-            this.partida.ficha2 = data.ficha2
+            // this.partida.ficha2 = data.ficha2
             this.partida.tirar = true
             this.moverJugador(this.partida.ficha2)
           }
@@ -198,11 +198,8 @@ export class TableroComponent implements OnInit {
         console.log(this.partida)
     
       }
-<<<<<<< HEAD
-=======
       
-    }
->>>>>>> 74aa7c042637e4174c1038a2c521ad6fdf208e1a
+    
     });
     
   }
@@ -237,12 +234,20 @@ export class TableroComponent implements OnInit {
   Ganar(){
     if(this.partida.ficha1.posicion >= 100){
       alert("ganaste")
+      this.http.post('http://127.0.0.1:3333/agregarGanadasPerdidas',{id:this.usuario.id,accion:"ganar"}).subscribe(res=>{
+        console.log(res)
+      });
     }else if (this.partida.ficha2.posicion >= 100){
       alert("GANASTE")
+      this.http.post('http://127.0.0.1:3333/agregarGanadasPerdidas',{id:this.usuario.id,accion:"ganar"}).subscribe(res=>{
+        console.log(res)
+      });
     }
-
-
+  
+  
 
   }
+
+
  
 }
