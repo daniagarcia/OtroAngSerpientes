@@ -62,7 +62,7 @@ export class TableroComponent implements OnInit {
     this.obtenerValoresPartida()
     this.iniciarConexion()
     this.cargarArreglo()
-    
+    console.log(this.celdas)
     
  
     // for (let i = 0; i < 10; i++) {
@@ -97,6 +97,7 @@ export class TableroComponent implements OnInit {
   public num: number = 1;
 
   dado: number = 1
+  
   clickrandom() {
     if((this.partida.partida == "empezar" || this.partida.partida == "comenzar") && this.partida.tirar == true){
     this.dado = Math.ceil(Math.random() * 6);
@@ -109,10 +110,12 @@ export class TableroComponent implements OnInit {
       this.moverJugador(this.partida.ficha2)
     }
     console.log(this.partida)
+    this.Ganar();
     this.ws.getSubscription('juego').emit('partida',this.partida)
 
  
     }
+
   }
   
   moverJugador(jugador: User){
@@ -122,12 +125,12 @@ export class TableroComponent implements OnInit {
 
   animador: number = 0;
   animDuration: number = 100
+  
   moverAnimado(jugador: User){
    jugador.posicion++
-
     this.animador++
 
-    if(this.animador < this.dado){
+    if(this.animador < this.partida.dado){
       setTimeout(() => {
         this.moverAnimado(jugador)
       }, this.animDuration);
@@ -168,9 +171,10 @@ export class TableroComponent implements OnInit {
     })
 
     canal.on('partida',data => {
-      console.log(data)
+  
       if(data.retador == this.usuario.nombre){
-        if(data.partida == "pendiente"){
+        console.log(data)
+        if(this.partida.partida == "pendiente"){
           this.partida.partida = "empezar"
           this.ws.getSubscription('juego').emit('partida',this.partida)
         }else if(data.partida == "comenzar"){
@@ -189,7 +193,16 @@ export class TableroComponent implements OnInit {
             this.moverJugador(this.partida.ficha2)
           }
         }
+        console.log(this.partida)
+        this.Ganar();
+        console.log(this.partida)
+    
       }
+<<<<<<< HEAD
+=======
+      
+    }
+>>>>>>> 74aa7c042637e4174c1038a2c521ad6fdf208e1a
     });
     
   }
@@ -219,6 +232,17 @@ export class TableroComponent implements OnInit {
         this.celdas[i].push(celda);
       }
     }
+  }
+
+  Ganar(){
+    if(this.partida.ficha1.posicion >= 100){
+      alert("ganaste")
+    }else if (this.partida.ficha2.posicion >= 100){
+      alert("GANASTE")
+    }
+
+
+
   }
  
 }
