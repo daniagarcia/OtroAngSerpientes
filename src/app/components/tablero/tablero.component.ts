@@ -173,24 +173,23 @@ export class TableroComponent implements OnInit {
         if(data.partida == "pendiente"){
           this.partida.partida = "empezar"
           this.ws.getSubscription('juego').emit('partida',this.partida)
-        }
-      }else if(data.partida == "comenzar"){
-        console.log(data)
-        if(data.turno == "1"){
-          this.dado = data.dado
-          this.partida.dado = data.dado
-          this.partida.ficha1 = data.ficha1
-          this.partida.tirar = true
-          this.moverJugador(this.partida.ficha1) 
-        }else{
-          this.dado = data.dado
-          this.partida.dado = data.dado
-          this.partida.ficha2 = data.ficha2
-          this.partida.tirar = true
-          this.moverJugador(this.partida.ficha2)
+        }else if(data.partida == "comenzar"){
+          console.log(data)
+          if(data.turno == "1"){
+            this.dado = data.dado
+            this.partida.dado = data.dado
+            this.partida.ficha1 = data.ficha1
+            this.partida.tirar = true
+            this.moverJugador(this.partida.ficha1) 
+          }else{
+            this.dado = data.dado
+            this.partida.dado = data.dado
+            this.partida.ficha2 = data.ficha2
+            this.partida.tirar = true
+            this.moverJugador(this.partida.ficha2)
+          }
         }
       }
-      
     });
     
   }
