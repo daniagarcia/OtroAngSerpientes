@@ -195,12 +195,16 @@ export class TableroComponent implements OnInit {
             this.partida.tirar = true
             this.moverJugador(this.partida.ficha2)
           }
+          console.log(this.partida)
+          this.Ganar();
+          console.log(this.partida)
         }
-        console.log(this.partida)
-        this.Ganar();
-        console.log(this.partida)
+
+      
     
+        
       }
+      
       
     
     });
@@ -236,12 +240,12 @@ export class TableroComponent implements OnInit {
 
   Ganar(){
     if(this.partida.ficha1.posicion >= 100){
-      alert("ganaste")
+      // alert("ganaste")
       this.http.post('http://127.0.0.1:3333/estadisticas',{id:this.usuario.id,accion:"ganar"}).subscribe(res=>{
         console.log(res)
       });
     }else if (this.partida.ficha2.posicion >= 100){
-      alert("GANASTE")
+      // alert("GANASTE")
       this.http.post('http://127.0.0.1:3333/estadisticas',{id:this.usuario.id,accion:"ganar"}).subscribe(res=>{
         console.log(res)
       });
@@ -250,8 +254,8 @@ export class TableroComponent implements OnInit {
 
   mostrarEstadisticas(){
     this.http.post('http://127.0.0.1:3333/mostrar',{id:this.usuario.id}).subscribe(res=>{
-        //  this.usuario.ganadas = res.ganadas
-        //  this.usuario.perdidas = res.perdidas
+         this.usuario.ganadas = res.user.ganadas
+         this.usuario.perdidas = res.user.perdidas
         console.log(res)
       });
       
