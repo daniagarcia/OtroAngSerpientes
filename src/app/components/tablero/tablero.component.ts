@@ -14,7 +14,9 @@ export class TableroComponent implements OnInit {
   ws = Ws('ws://localhost:3333');
   usuario:any = {
     id :"",
-    nombre:""
+    nombre:"",
+    ganadas:0,
+    perdidas:0
   }
   listUsuarios: Array<any>=[]
   partida : any = {
@@ -63,6 +65,7 @@ export class TableroComponent implements OnInit {
     this.iniciarConexion()
     this.cargarArreglo()
     console.log(this.celdas)
+    this.mostrarEstadisticas()
     
  
     // for (let i = 0; i < 10; i++) {
@@ -234,18 +237,24 @@ export class TableroComponent implements OnInit {
   Ganar(){
     if(this.partida.ficha1.posicion >= 100){
       alert("ganaste")
-      this.http.post('http://127.0.0.1:3333/agregarGanadasPerdidas',{id:this.usuario.id,accion:"ganar"}).subscribe(res=>{
+      this.http.post('http://127.0.0.1:3333/estadisticas',{id:this.usuario.id,accion:"ganar"}).subscribe(res=>{
         console.log(res)
       });
     }else if (this.partida.ficha2.posicion >= 100){
       alert("GANASTE")
-      this.http.post('http://127.0.0.1:3333/agregarGanadasPerdidas',{id:this.usuario.id,accion:"ganar"}).subscribe(res=>{
+      this.http.post('http://127.0.0.1:3333/estadisticas',{id:this.usuario.id,accion:"ganar"}).subscribe(res=>{
         console.log(res)
       });
-    }
-  
-  
+    } 
+  }  
 
+  mostrarEstadisticas(){
+    this.http.post('http://127.0.0.1:3333/mostrar',{id:this.usuario.id}).subscribe(res=>{
+        //  this.usuario.ganadas = res.ganadas
+        //  this.usuario.perdidas = res.perdidas
+        console.log(res)
+      });
+      
   }
 
 
