@@ -254,8 +254,8 @@ export class TableroComponent implements OnInit {
 
   mostrarEstadisticas(){
     this.http.post('http://127.0.0.1:3333/mostrar',{id:this.usuario.id}).subscribe(res=>{
-         this.usuario.ganadas = res.user.ganadas
-         this.usuario.perdidas = res.user.perdidas
+        //  this.usuario.ganadas = res.user.ganadas
+        //  this.usuario.perdidas = res.user.perdidas
         console.log(res)
       });
       
