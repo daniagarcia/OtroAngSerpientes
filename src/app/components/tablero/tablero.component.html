@@ -1,8 +1,8 @@
 <div class="">
     <!-- <h1>Serpientes y Escaleras</h1> -->
-    <h2>{{usuario.nombre}} / <h2 style="display: inline-block">{{partida.retador}}</h2> </h2> 
+    <h2> <font color="Lime">{{usuario.nombre}}</font> / <h2 style="display: inline-block"> <font color="red">{{partida.retador}}</font></h2> </h2> 
    
-    <h2>{{partida.partida}}</h2>
+    <h4>{{partida.partida}}</h4>
     <div style="display: inline-block" class="tablero">
     
         <section *ngFor="let renglon of celdas.reverse(); index as i;">
@@ -12,21 +12,19 @@
             </div>
         </section>
     </div>
-    <div style="display: inline-block" id="side1">
+
+    <div style="display: inline-block"  id="side1">
         <button  (click)="clickrandom()" id="dice">{{dado}}</button>
     </div>
+        
     <table>
-        <tr>
+        <tr> 
             <th>Ganadas</th>
             <th>Perdidas</th>
-            <!-- <th>Country</th> -->
         </tr>
         <tr>
             <th>{{this.usuario.ganadas}}</th>
             <th>{{this.usuario.perdidas}}</th>
-        </tr>
-        
-        
+        </tr>      
     </table>
 </div>
-<div hidden id="particles-js"></div>

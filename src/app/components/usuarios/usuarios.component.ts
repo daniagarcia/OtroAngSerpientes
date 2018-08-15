@@ -46,7 +46,7 @@
   //data es el objeto con la info del usuario
     subscribirCanal(){
       let canal  = this.ws.subscribe('juego')
-      console.log('SUBSCRITO AL CANAL JUEGO ')
+      console.log('SUSCRITO AL CANAL JUEGO ')
       canal.on('message',data => {
         console.log(data)
         if(!this.listUsuarios.some(e => e.nombre === data.nombre)){
@@ -62,6 +62,7 @@
           if(data.jugador2.id == this.usuario.id){
             localStorage.setItem("turno","2");
             localStorage.setItem("retador",data.jugador1.nombre)
+            localStorage.setItem("id_retador",data.jugador1.id)
             this.ws.getSubscription('juego').emit('partida',{tipoSolicitud:"Aceptada",jugador1:data.jugador1,jugador2:this.usuario})
             this.ws.close()
             this.router.navigate(['/tb/:id']);
@@ -70,6 +71,7 @@
             if(data.jugador1.id== this.usuario.id){
               localStorage.setItem("turno","1");
               localStorage.setItem("retador",data.jugador2.nombre)
+              localStorage.setItem("id_retador",data.jugador2.id)
               this.ws.close();
               this.router.navigate(['/tb/:id'])
             }

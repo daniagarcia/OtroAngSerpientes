@@ -26,7 +26,8 @@ export class TableroComponent implements OnInit {
     ficha1:"",
     ficha2:"",
     partida:"pendiente",
-    dado:0
+    dado:0,
+    id_retador:0
 
   }
 
@@ -214,6 +215,7 @@ export class TableroComponent implements OnInit {
   obtenerValoresPartida(){
     this.partida.turno = localStorage.getItem('turno')    
     this.partida.retador = localStorage.getItem('retador')
+    this.partida.id_retador = localStorage.getItem('id_retador')
     if(this.partida.turno == 1){
       this.partida.tirar= true 
     }
@@ -244,9 +246,17 @@ export class TableroComponent implements OnInit {
       this.http.post('http://127.0.0.1:3333/estadisticas',{id:this.usuario.id,accion:"ganar"}).subscribe(res=>{
         console.log(res)
       });
+      this.http.post('http://127.0.0.1:3333/estadisticas',{id:this.partida.id_retador,accion:"perder"}).subscribe(res=>{
+        console.log(res)
+      });
+
+     
     }else if (this.partida.ficha2.posicion >= 100){
       // alert("GANASTE")
       this.http.post('http://127.0.0.1:3333/estadisticas',{id:this.usuario.id,accion:"ganar"}).subscribe(res=>{
+        console.log(res)
+      });
+      this.http.post('http://127.0.0.1:3333/estadisticas',{id:this.partida.id_retador,accion:"perder"}).subscribe(res=>{
         console.log(res)
       });
     } 
@@ -254,8 +264,8 @@ export class TableroComponent implements OnInit {
 
   mostrarEstadisticas(){
     this.http.post('http://127.0.0.1:3333/mostrar',{id:this.usuario.id}).subscribe(res=>{
-        //  this.usuario.ganadas = res.user.ganadas
-        //  this.usuario.perdidas = res.user.perdidas
+         this.usuario.ganadas = res.user.ganadas
+         this.usuario.perdidas = res.user.perdidas
         console.log(res)
       });
       

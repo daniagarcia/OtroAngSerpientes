@@ -99,19 +99,18 @@ body{
     table {
       font-family: arial, sans-serif;
       border-collapse: collapse;
-      width: 50%;
+      width: 40%;
       float: right;
-      top: 900px;
-     
-     
+      top: 1000px;
+      margin:90px;     
   }
   
-  td, th {
+  td,th {
       border: 1px solid #dddddd;
       text-align: left;
       padding: 8px;
   }
   
   tr:nth-child(even) {
-      background-color: #dddddd;
+      background-color: #2b9aad;
   }
