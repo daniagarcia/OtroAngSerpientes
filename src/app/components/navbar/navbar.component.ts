@@ -18,6 +18,6 @@ export class NavbarComponent implements OnInit {
     localStorage.removeItem('usuario');
     localStorage.removeItem('id_user');
 
-    this.router.navigate(['login']);
+    this.router.navigate(['/']);
   }
 }

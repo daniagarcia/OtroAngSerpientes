@@ -32,11 +32,15 @@ export class LoginComponent implements OnInit {
     // localStorage.getItem('id_user')
      this.http.post<any>('http://127.0.0.1:3333/login',{usu:usu,psw:psw}).subscribe(res=>{
        console.log(res)
+       if(res.sesion && res.user){
        localStorage.setItem('token',res.sesion.token);
        localStorage.setItem('usuario',res.user.username);
        localStorage.setItem('id_user',res.user.id);
 
        this.router.navigate(['usuarios']);
+      }else{
+        alert('Datos Incorrectos')
+      }
      });
   }
 

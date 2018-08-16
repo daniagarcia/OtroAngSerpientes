@@ -19,15 +19,17 @@ import { LoginAuthService } from './Services/login-auth.service';
 
 import { AuthGuard } from './Guards/auth.guard';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { LoginGuard } from './Guards/login.guard';
 
 
 const routes: Routes = 
 [//, canActivate: [AuthGuard]
-  { path: 'Registrarse', component: RegistroComponent },
+  { path: 'Registrarse', component: RegistroComponent ,canActivate: [LoginGuard]},
   { path: 'inicio', component: InicioComponent},
-  { path: 'tb/:id', component: TableroComponent },
-  { path: 'login',component:LoginComponent},
-  { path: 'usuarios', component:UsuariosComponent}
+  { path: 'tb/:id', component: TableroComponent ,canActivate: [AuthGuard]},
+  { path: '',component:LoginComponent,  canActivate: [LoginGuard]},
+  { path: 'usuarios', component:UsuariosComponent ,canActivate: [AuthGuard]},
+  
   // { path: '',component: LoginComponent, pathMatch: 'full' },
   // { path: '**',   redirectTo: '', pathMatch: 'full' }
  ];

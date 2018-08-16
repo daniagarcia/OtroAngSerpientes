@@ -1,6 +1,82 @@
-<nav class="navbar is-success"  >
- <font color="White"> Serpientes Y Escaleras</font> 
-      
-      <button style="margin: auto" (click)="logout()"  class="btn btn-outline-danger" type="submit">Salir</button>
+<nav class="navbar is-transparent">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="">
+          <img src="assets/img/serpi.jpg" width="112" height="28">
+        </a>
+        <h2 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" >Serpientes Y Escaleras</h2>
+        <!-- <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div> -->
+      </div>
+    
+      <div id="navbarExampleTransparentExample" class="navbar-menu">
+        <!-- <div class="navbar-start"> -->
+          <!-- <a class="navbar-item" href="https://bulma.io/">
+            Home
+          </a> -->
+          <!-- <div class="navbar-item has-dropdown is-hoverable"> -->
+            <!-- <a class="navbar-link" href="/documentation/overview/start/">
+              Docs
+            </a> -->
+            <!-- <div class="navbar-dropdown is-boxed">
+              <a class="navbar-item" href="/documentation/overview/start/">
+                Overview
+              </a>
+              <a class="navbar-item" href="https://bulma.io/documentation/modifiers/syntax/">
+                Modifiers
+              </a>
+              <a class="navbar-item" href="https://bulma.io/documentation/columns/basics/">
+                Columns
+              </a>
+              <a class="navbar-item" href="https://bulma.io/documentation/layout/container/">
+                Layout
+              </a>
+              <a class="navbar-item" href="https://bulma.io/documentation/form/general/">
+                Form
+              </a>
+              <hr class="navbar-divider">
+              <a class="navbar-item" href="https://bulma.io/documentation/elements/box/">
+                Elements
+              </a>
+              <a class="navbar-item is-active" href="https://bulma.io/documentation/components/breadcrumb/">
+                Components
+              </a>
+            </div> -->
+          <!-- </div>
+        </div> -->
+    
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="field is-grouped">
+              <!-- <p class="control">
+                <a class="bd-tw-button button" data-social-network="Twitter" data-social-action="tweet" data-social-target="http://localhost:4000" target="_blank" href="https://twitter.com/intent/tweet?text=Bulma: a modern CSS framework based on Flexbox&amp;hashtags=bulmaio&amp;url=http://localhost:4000&amp;via=jgthms">
+                  <span class="icon">
+                    <i class="fab fa-twitter"></i>
+                  </span>
+                  <span>
+                    Tweet
+                  </span>
+                </a>
+              </p> -->
+              <p class="control">
+                <a (click)="logout()"  class="button is-primary" >
+                  <!-- <span class="icon">
+                    <i class="fas fa-download"></i>
+                  </span> -->
+                  <span>Salir</span>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
 
-</nav>
+<!-- <nav style="border-radius: 0" class="navbar is-success"  >
+ <font style="float: left; font-family:Arial, Helvetica, sans-serif " color="White"  > Serpientes Y Escaleras</font> 
+      
+      <button style="float: right;" (click)="logout()"  class="btn btn-info" type="submit">Salir</button>
+
+</nav>       -->

@@ -1,4 +1,4 @@
-body{
+/* body{
     background-color:#DEB887;
   }
   h1
@@ -7,7 +7,7 @@ body{
     background-color:#1bac3f;
     padding:6px;
     color:white;
-  }
+  } */
   
   .main
   {
@@ -49,8 +49,8 @@ body{
   
   .boardbox
   {
-    height:50px;
-    width:50px;
+    height:30px;
+    width:30px;
   }
   .left
   {
@@ -70,14 +70,17 @@ body{
   }
   #dice
   {
-    height:80px;
+    /* height:80px;
     width:80px;
-    font-size:70px;
+    font-size:70px; */
     color:black;
-    margin:auto;
+    margin:auto auto;
     border:none;
-    background-color:white;
+    /* background-color:white; */
   }
+
+
+
   .contenedor-tabla{
 
     display: table;
@@ -94,7 +97,7 @@ body{
     
     display: table-cell;
     
-    }
+    }   
 
     table {
       font-family: arial, sans-serif;
@@ -111,6 +114,3 @@ body{
       padding: 8px;
   }
   
-  tr:nth-child(even) {
-      background-color: #2b9aad;
-  }
