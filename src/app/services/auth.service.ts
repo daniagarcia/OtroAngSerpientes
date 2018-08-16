@@ -11,16 +11,6 @@ export class AuthService {
 
   ngOnInit(){}
 
-  GetUser(){
-    return this.http.get<any>('http://127.0.0.1:3333/TraerUsu'); 
-
-  }
-
-  SetUser(username:string , password:string):any
-  {
-      return this.http.post('http://127.0.0.1:3333/insertarUser',{username,password});
-  }
-
 
   
   login(username:string,password:string){
@@ -36,3 +26,13 @@ export class AuthService {
     localStorage.removeItem('currentUset');
   }
 }
+
+  // GetUser(){
+  //   return this.http.get<any>('http://127.0.0.1:3333/TraerUsu'); 
+
+  // }
+
+  // SetUser(username:string , password:string):any
+  // {
+  //     return this.http.post('http://127.0.0.1:3333/insertarUser',{username,password});
+  // }
