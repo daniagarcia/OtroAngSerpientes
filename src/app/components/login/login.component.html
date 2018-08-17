@@ -18,8 +18,18 @@
         </div>
     </div>
     <div class="form-group">
-        <button [disabled]="loading" class="button is-primary">Login</button>
+        <button  [disabled]="loading" class="button is-primary modal-button">Login</button>
         <a [routerLink]="['/Registrarse']" class="btn btn-link">Registrarse</a>
     </div>
     <!-- <div *ngIf="error" class="alert alert-danger">{{error}}</div> -->
 </form> 
+<!-- <button class="button is-primary is-large modal-button" data-target="modal" aria-haspopup="true">Launch example modal</button> -->
+<div *ngIf="modaal" class="modal is-active">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <!-- Any other Bulma elements you want -->
+    <h4>Datos Incorrectoss</h4>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
