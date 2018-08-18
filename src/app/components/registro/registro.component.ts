@@ -32,6 +32,9 @@ export class RegistroComponent implements OnInit {
 
      this.http.post('http://127.0.0.1:3333/insertarUser',{usu:usu,email:email,psw:psw}).subscribe(res=>{
        console.log(res)
+       if(res == true){
+        this.router.navigate(['/'])
+       }
      });
 
     //this.sere.SetUser(usu,psw)

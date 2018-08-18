@@ -239,19 +239,22 @@ export class TableroComponent implements OnInit {
       }
     }
   }
+  
+  texto:string=''
 
   Ganar(){
+  
     if(this.partida.ficha1.posicion >= 100){
       // alert("ganaste")
+      this.texto= 'Jugador '+this.usuario.nombre +' Ganó! y Jugador ' +this.partida.retador+ 'Perdió'
       this.http.post('http://127.0.0.1:3333/estadisticas',{id:this.usuario.id,accion:"ganar"}).subscribe(res=>{
         console.log(res)
       });
       this.http.post('http://127.0.0.1:3333/estadisticas',{id:this.partida.id_retador,accion:"perder"}).subscribe(res=>{
         console.log(res)
-      });
-
-     
+      });     
     }else if (this.partida.ficha2.posicion >= 100){
+      this.texto= 'Jugador '+this.usuario.nombre +' Ganó! y Jugador ' +this.partida.retador+ 'Perdió'
       // alert("GANASTE")
       this.http.post('http://127.0.0.1:3333/estadisticas',{id:this.usuario.id,accion:"ganar"}).subscribe(res=>{
         console.log(res)

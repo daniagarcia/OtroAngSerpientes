@@ -28,3 +28,15 @@
         </tr>      
     </table>
 </div>
+
+<div *ngIf="modaal" class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <!-- Any other Bulma elements you want -->
+      <h4>{{texto}}
+      </h4>
+    </div>
+    <button (click)='modaal=false' class="modal-close is-large" aria-label="close"></button>
+  </div>
+  
+  
