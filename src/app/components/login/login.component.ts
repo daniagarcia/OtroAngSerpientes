@@ -31,23 +31,24 @@ export class LoginComponent implements OnInit {
     const psw = target.querySelector('#psw').value
     console.log(usu, psw)
     // localStorage.getItem('id_user')
-     this.http.post<any>('http://127.0.0.1:3333/login',{usu:usu,psw:psw}).subscribe(res=>{
+     this.http.post<any>('http://127.0.0.1:3333/',{usu:usu,psw:psw}).subscribe(res=>{
       console.log(res)  
-     console.log(res.usuarios)
-       console.log(res.sesions)
-       if(res.sesions && res.usuarios){
+     console.log(res.user)
+       console.log(res.sesion)
+       if(res.sesion && res.user){
        
        localStorage.setItem('token',res.sesion.token);
        localStorage.setItem('usuario',res.user.username);
        localStorage.setItem('id_user',res.user.id);
 
        this.router.navigate(['usuarios']);
-      }else{
+      }else if(res.sesion='' && res.user){
         // console.log(res)
         // console.log(res.object)
         this.modaal=true;
         //  alert('Datos Incorrectos')
-      }
+        }
+    
      });
   }
 
