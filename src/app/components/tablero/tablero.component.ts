@@ -31,6 +31,8 @@ export class TableroComponent implements OnInit {
 
   }
 
+  modal:boolean=false
+
   constructor(private  route: ActivatedRoute,
     private router: Router,private http:HttpClient) { }
 
@@ -66,7 +68,7 @@ export class TableroComponent implements OnInit {
     this.iniciarConexion()
     this.cargarArreglo()
     console.log(this.celdas)
-    // this.mostrarEstadisticas()
+    this.mostrarEstadisticas()
     
  
     // for (let i = 0; i < 10; i++) {
@@ -199,11 +201,22 @@ export class TableroComponent implements OnInit {
           console.log(this.partida)
           this.Ganar();
           console.log(this.partida)
+        }else if(data.partida == "finalizada"){
+          if(data.turno == "1"){
+            this.dado = data.dado
+            this.partida.dado = data.dado
+            this.partida.partida=data.partida
+            this.moverJugador(this.partida.ficha1)
+            this.modal=true
+          }else{
+            this.dado = data.dado
+            this.partida.dado = data.dado
+            this.partida.partida=data.partida
+            this.moverJugador(this.partida.ficha2)
+            this.modal=true
+          }
+         
         }
-
-      
-    
-        
       }
       
       
@@ -246,13 +259,16 @@ export class TableroComponent implements OnInit {
   
     if(this.partida.ficha1.posicion >= 100){
       // alert("ganaste")
-      this.texto= 'Jugador '+this.usuario.nombre +' Ganó! y Jugador ' +this.partida.retador+ 'Perdió'
+      this.texto= 'Jugador '+this.usuario.nombre +'Ganó! y Jugador ' +this.partida.retador+ 'Perdió'
       this.http.post('http://127.0.0.1:3333/estadisticas',{id:this.usuario.id,accion:"ganar"}).subscribe(res=>{
         console.log(res)
       });
       this.http.post('http://127.0.0.1:3333/estadisticas',{id:this.partida.id_retador,accion:"perder"}).subscribe(res=>{
         console.log(res)
       });     
+      this.partida.partida='finalizada'
+      this.partida.tirar=false
+      this.modal=true
     }else if (this.partida.ficha2.posicion >= 100){
       this.texto= 'Jugador '+this.usuario.nombre +' Ganó! y Jugador ' +this.partida.retador+ 'Perdió'
       // alert("GANASTE")
@@ -261,18 +277,21 @@ export class TableroComponent implements OnInit {
       });
       this.http.post('http://127.0.0.1:3333/estadisticas',{id:this.partida.id_retador,accion:"perder"}).subscribe(res=>{
         console.log(res)
-      });
+      });   
+      this.partida.partida='finalizada'   
+      this.partida.tirar=false
+      this.modal=true 
     } 
   }  
 
-  // mostrarEstadisticas(){
-  //   this.http.post('http://127.0.0.1:3333/mostrar',{id:this.usuario.id}).subscribe(res=>{
-  //        this.usuario.ganadas = res.user.ganadas
-  //        this.usuario.perdidas = res.user.perdidas
-  //       console.log(res)
-  //     });
+  mostrarEstadisticas(){
+    this.http.post<any>('http://127.0.0.1:3333/mostrar',{id:this.usuario.id}).subscribe(res =>{
+      console.log(res.user)
+         this.usuario.ganadas = res.user.ganadas
+         this.usuario.perdidas =res.user.perdidas
+      });
       
-  // }
+  }
 
 
  

@@ -32,21 +32,16 @@ export class LoginComponent implements OnInit {
     console.log(usu, psw)
     // localStorage.getItem('id_user')
      this.http.post<any>('http://127.0.0.1:3333/',{usu:usu,psw:psw}).subscribe(res=>{
-      console.log(res)  
-     console.log(res.user)
-       console.log(res.sesion)
-       if(res.sesion && res.user){
-       
-       localStorage.setItem('token',res.sesion.token);
-       localStorage.setItem('usuario',res.user.username);
-       localStorage.setItem('id_user',res.user.id);
-
-       this.router.navigate(['usuarios']);
-      }else if(res.sesion='' && res.user){
-        // console.log(res)
-        // console.log(res.object)
-        this.modaal=true;
-        //  alert('Datos Incorrectos')
+      console.log(res.sesion)  
+     if(!res.sesion.type ){
+         this.modaal=true;
+         console.log('entre  1')
+      }else {
+        console.log('res.sesion')
+          localStorage.setItem('token',res.sesion.token);
+          localStorage.setItem('usuario',res.usuario.username);
+          localStorage.setItem('id_user',res.usuario.id);
+          this.router.navigate(['usuarios']);
         }
     
      });
